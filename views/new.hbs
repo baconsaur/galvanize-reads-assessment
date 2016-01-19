@@ -1,0 +1,17 @@
+<form action="/books/add" method="post">
+  <label for="title">Title</label>
+  <input id="title" type="text" name="title" required="required" />
+  <label for="genre">Genre</label>
+  <input id="genre" type="text" name="genre" required="required" />
+  <label for="cover_url">Cover Image URL</label>
+  <input id="cover_url" type="text" name="cover_url" required="required" />
+  <label for="description">Description</label>
+  <input id="description" type="textarea" name="description" required="required" />
+  <label for="authors">Authors</label>
+  <select id="authors" name="authors">
+    {{#each author}}
+      <option value={{id}}>{{first_name}} {{last_name}}</option>
+    {{/each}}
+  </select>
+  <input type="submit" value="Add Book">
+</form>

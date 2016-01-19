@@ -1,20 +1,23 @@
 <h1>{{title}}</h1>
+<a href="/books/new">Add a book</a>
 {{#each books}}
-  <h2>{{title}}</h2>
-  <figure>
-    <img src={{cover_url}} alt={{title}}>
-  </figure>
-  <h3>
-    By
-    {{#each author}}
-      {{first_name}} {{last_name}}
-      {{#unless @last}}
-        &
-      {{/unless}}
-    {{/each}}
-  </h3>
-  <h4>
-    {{genre}}
-  </h4>
-  <p>{{description}}</p>
+  <div class="book">
+    <figure>
+      <img src={{cover_url}} alt={{title}}>
+    </figure>
+    <h2>{{title}}</h2>
+    <h3>
+      By
+      {{#each author}}
+        {{first_name}} {{last_name}}
+        {{#unless @last}}
+          &
+        {{/unless}}
+      {{/each}}
+    </h3>
+    <h4>
+      {{genre}}
+    </h4>
+    <p>{{description}}</p>
+  </div>
 {{/each}}

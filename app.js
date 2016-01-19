@@ -9,16 +9,9 @@ require('dotenv').load();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var books = require('./routes/books');
 
 var app = express();
-
-function Books () {
-	return knex('books').select('books.id', 'books.title', 'books.cover_url', 'books.description', 'genres.name as genre').innerJoin('genres', 'books.genre', 'genres.id');
-}
-
-function Authors () {
-	return knex('authors').select('authors.*', 'book_author.book_id').innerJoin('book_author', 'authors.id', 'book_author.author_id');
-}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -32,28 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/books', function (req, res) {
-	Books().then(function(books){
-		Authors().then(function(authors){
-			for (var i in books) {
-				books[i].author = [];
-				for (var j in authors) {
-					if (books[i].id === authors[j].book_id) {
-						books[i].author.push({
-							id: authors[j].id,
-							first_name: authors[j].first_name,
-							last_name: authors[j].last_name
-						});
-					}
-				}
-			}
-			res.render('books', {
-				books: books
-			});
-		});
-	});
-});
-
+app.use('/books', books);
 app.use('/', routes);
 app.use('/users', users);
 
